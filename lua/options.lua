@@ -18,7 +18,8 @@ vim.opt.showmode = false
 -- Sync clipboard between OS and Neovim.
 --  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
-vim.opt.clipboard = 'unnamedplus'
+--  vim.o.clipboard = 'unnamedplus' -- POSIX
+vim.o.clipboard = 'unnamed' -- Windows
 
 -- Enable break indent
 vim.opt.breakindent = true
@@ -58,5 +59,9 @@ vim.opt.cursorline = true
 
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
+
+-- Add the filename to the title of the status bar
+vim.opt.title = true
+vim.opt.titlestring = [[%t – %{fnamemodify(getcwd(), ':t')}]]
 
 -- vim: ts=2 sts=2 sw=2 et
