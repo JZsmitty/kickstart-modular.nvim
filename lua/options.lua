@@ -64,4 +64,8 @@ vim.opt.scrolloff = 10
 vim.opt.title = true
 vim.opt.titlestring = [[%t – %{fnamemodify(getcwd(), ':t')}]]
 
+-- Add the filename to the title of the status bar
+vim.opt.title = true
+vim.opt.titlestring = [[%t – %{fnamemodify(getcwd(), ':t')}]]
+
 -- vim: ts=2 sts=2 sw=2 et

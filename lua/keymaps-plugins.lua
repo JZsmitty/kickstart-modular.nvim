@@ -6,6 +6,7 @@ local nmap = function(keys, func, desc, bufnr)
   if desc then
     desc = 'LSP: ' .. desc
   end
+
   vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
 end
 
@@ -25,23 +26,22 @@ Mappings.addDap = function()
   map('n', '<F12>', dap.step_out, 'Debug: Step Out')
   map('n', '<Leader>b', dap.toggle_breakpoint, 'Debug: Toggle Breakpoint')
   map('n', '<Leader>B', dap.set_breakpoint, 'Debug: Set Breakpoint')
-  map('n', '<Leader>lp', function() dap.set_breakpoint(nil, nil, vim.fn.input('Log point message: ')) end,
-    'Debug: Set Breakpoint msg')
+  map('n', '<Leader>lp', dap.set_breakpoint(nil, nil, vim.fn.input('Log point message: ')), 'Debug: Set Breakpoint msg')
   map('n', '<Leader>dr', dap.repl.open, 'Debug: Repl Open')
   map('n', '<Leader>dl', dap.run_last, 'Debug: Run Last')
-  map({ 'n', 'v' }, '<Leader>dh', require('dap.ui.widgets').hover, 'Debug: Hover')
-  map({ 'n', 'v' }, '<Leader>dp', require('dap.ui.widgets').preview, 'Debug: Preview')
+  map({'n', 'v'}, '<Leader>dh', require('dap.ui.widgets').hover, 'Debug: Hover')
+  map({'n', 'v'}, '<Leader>dp', require('dap.ui.widgets').preview, 'Debug: Preview')
   map('n', '<Leader>df', function()
-      local widgets = require('dap.ui.widgets')
-      widgets.centered_float(widgets.frames)
-    end,
-    'Debug: Centered Float Frame')
+    local widgets = require('dap.ui.widgets')
+    widgets.centered_float(widgets.frames)
+  end,
+  'Debug: Centered Float Frame')
   map('n', '<Leader>ds', function()
-      local widgets = require('dap.ui.widgets')
-      widgets.centered_float(widgets.scopes)
-    end,
-    'Debug: Centered Float Scope')
-  print 'keymaps-plugins: Added Dap mappings'
+    local widgets = require('dap.ui.widgets')
+    widgets.centered_float(widgets.scopes)
+  end,
+  'Debug: Centered Float Scope')
+  -- print 'keymaps-plugins: Added Dap mappings'
 end
 
 Mappings.addDapUi = function()
@@ -56,7 +56,6 @@ Mappings.addLsp = function(bufnr)
   nmap('<leader>ca', function()
     vim.lsp.buf.code_action { context = { only = { 'quickfix', 'refactor', 'source' } } }
   end, '[C]ode [A]ction')
-
   nmap('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition', bufnr)
   nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences', bufnr)
   nmap('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation', bufnr)
