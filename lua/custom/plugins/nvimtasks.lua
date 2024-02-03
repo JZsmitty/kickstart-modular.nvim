@@ -4,7 +4,13 @@ return {
     'nvim-lua/plenary.nvim',
     'mfussenegger/nvim-dap',
   },
-  config = function ()
-    require('tasks').setup {}
+  config = function()
+    require('tasks').setup({
+      default_params = {
+        cmake = {
+          dap_name = "codelldb",
+        }
+      }
+    })
   end
 }
