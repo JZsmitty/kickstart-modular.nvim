@@ -69,7 +69,7 @@ local custom_on_attach = {
   clangd = function(client, bufnr)
     require("clangd_extensions.inlay_hints").setup_autocmd()
     require("clangd_extensions.inlay_hints").set_inlay_hints()
-    Lsp.on_attach(client, bufnr)
+    on_attach(client, bufnr)
     print 'Ran custom clangd on_attach'
   end,
   -- gopls = function(client, bufnr),
