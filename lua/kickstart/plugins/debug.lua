@@ -32,14 +32,31 @@ return {
 
       -- You can provide additional configuration to the handlers,
       -- see mason-nvim-dap README for more information
-      handlers = {},
+      handlers = {
+        codelldb = function(config)
+          config.adapters = {
+            name = "codelldb server",
+            type = "server",
+            port = "${port}",
+            executable = {
+              command = vim.fn.stdpath("data") .. '\\mason\\packages\\codelldb\\extension\\adapter\\codelldb.exe',
+              args = { "--port", "${port}" },
+            },
+          }
+          print(vim.fn.stdpath("data") .. '\\mason\\bin\\codelldb')
+          require('mason-nvim-dap').default_setup(config)
+        end,
+      },
 
       -- You'll need to check that you have the required things installed
       -- online, please don't ask me how to install them :)
       ensure_installed = {
         -- Update this to ensure that you have the debuggers for the langs you want
-        'delve',
+        'cppdbg',
+        'codelldb',
+        -- 'delve',
       },
+      automatic_installation = true,
     }
 
     -- Basic debugging keymaps, feel free to change to your liking!

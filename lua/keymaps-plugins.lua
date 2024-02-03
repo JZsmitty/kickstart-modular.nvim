@@ -1,12 +1,11 @@
 local function map(mode, l, r, textdesc)
-  vim.keymap.set(mode, l, r, { desc =  textdesc })
+  vim.keymap.set(mode, l, r, { desc = textdesc })
 end
 
 local nmap = function(keys, func, desc, bufnr)
   if desc then
     desc = 'LSP: ' .. desc
   end
-
   vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
 end
 
@@ -16,7 +15,7 @@ local function bmap(mode, l, r, opts, bufnr)
   vim.keymap.set(mode, l, r, opts)
 end
 
-local Mappings = { }
+local Mappings = {}
 
 Mappings.addDap = function()
   local dap = require 'dap'
@@ -26,21 +25,22 @@ Mappings.addDap = function()
   map('n', '<F12>', dap.step_out, 'Debug: Step Out')
   map('n', '<Leader>b', dap.toggle_breakpoint, 'Debug: Toggle Breakpoint')
   map('n', '<Leader>B', dap.set_breakpoint, 'Debug: Set Breakpoint')
-  map('n', '<Leader>lp', dap.set_breakpoint(nil, nil, vim.fn.input('Log point message: ')), 'Debug: Set Breakpoint msg')
+  map('n', '<Leader>lp', function() dap.set_breakpoint(nil, nil, vim.fn.input('Log point message: ')) end,
+    'Debug: Set Breakpoint msg')
   map('n', '<Leader>dr', dap.repl.open, 'Debug: Repl Open')
   map('n', '<Leader>dl', dap.run_last, 'Debug: Run Last')
-  map({'n', 'v'}, '<Leader>dh', require('dap.ui.widgets').hover, 'Debug: Hover')
-  map({'n', 'v'}, '<Leader>dp', require('dap.ui.widgets').preview, 'Debug: Preview')
+  map({ 'n', 'v' }, '<Leader>dh', require('dap.ui.widgets').hover, 'Debug: Hover')
+  map({ 'n', 'v' }, '<Leader>dp', require('dap.ui.widgets').preview, 'Debug: Preview')
   map('n', '<Leader>df', function()
-    local widgets = require('dap.ui.widgets')
-    widgets.centered_float(widgets.frames)
-  end,
-  'Debug: Centered Float Frame')
+      local widgets = require('dap.ui.widgets')
+      widgets.centered_float(widgets.frames)
+    end,
+    'Debug: Centered Float Frame')
   map('n', '<Leader>ds', function()
-    local widgets = require('dap.ui.widgets')
-    widgets.centered_float(widgets.scopes)
-  end,
-  'Debug: Centered Float Scope')
+      local widgets = require('dap.ui.widgets')
+      widgets.centered_float(widgets.scopes)
+    end,
+    'Debug: Centered Float Scope')
   print 'keymaps-plugins: Added Dap mappings'
 end
 
