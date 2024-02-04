@@ -16,7 +16,7 @@ local function bmap(mode, l, r, opts, bufnr)
 end
 
 local Mappings = {}
-
+--[[
 Mappings.addDap = function()
   local dap = require 'dap'
   map('n', '<F5>', dap.continue, 'Debug: Start/Continue')
@@ -50,7 +50,7 @@ Mappings.addDapUi = function()
   map('n', '<F7>', dapui.toggle, 'Debug: See last session result.')
   print 'keymaps-plugins: Added DapUi mappings'
 end
-
+--]]
 Mappings.addLsp = function(bufnr)
   nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame', bufnr)
   nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction', bufnr)
@@ -104,7 +104,7 @@ Mappings.addTelescope = function()
   map('n', '<leader>sG', ':LiveGrepGitRoot<cr>', '[S]earch by [G]rep on Git Root')
   map('n', '<leader>sd', require('telescope.builtin').diagnostics, '[S]earch [D]iagnostics')
   map('n', '<leader>sr', require('telescope.builtin').resume, '[S]earch [R]esume')
-  print 'keymaps-plugins: Added Telescope mappings'
+  -- print 'keymaps-plugins: Added Telescope mappings'
 end
 
 Mappings.addGitSigns = function(bufnr)
@@ -160,7 +160,17 @@ Mappings.addGitSigns = function(bufnr)
 
   -- Text object
   bmap({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>', { desc = 'select git hunk' }, bufnr)
-  print 'keymaps-plugins: Added GitSigns mappings'
+  -- print 'keymaps-plugins: Added GitSigns mappings'
+end
+
+Mappings.addObsidian = function()
+  map('n', '<leader>mf', require('obsidian').util.gf_passthrough(), '[M]bsidian goto [F]ile')
+  map('n', '<leader>mc', require('obsidian').util.toggle_checkbox(), '[M]bsidian [C]heckbox')
+  map('n', '<leader>mn', ":ObsidianSearch", '[M]bsidian [N]ew')
+  map('n', '<leader>me', ":ObsidianLink", '[M]bsidian link [E]xisting')
+  map('n', '<leader>ml', ":ObsidianLinkNew", '[M]bsidian [L]ink new')
+  map('n', '<leader>mt', ":ObsidianTemplate", '[M]bsidian [T]emplate')
+  map('n', '<leader>mo', 'lua print("hello")', '[M]bsidian [O]pen')
 end
 
 return Mappings

@@ -44,4 +44,7 @@ vim.o.termguicolors = true
 vim.opt.title = true
 vim.opt.titlestring = [[%t – %{fnamemodify(getcwd(), ':t')}]]
 
+-- Change conceal level for Obsidian
+vim.opt.conceallevel = 1
+
 -- vim: ts=2 sts=2 sw=2 et
