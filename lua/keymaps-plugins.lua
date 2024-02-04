@@ -53,7 +53,9 @@ end
 
 Mappings.addLsp = function(bufnr)
   nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame', bufnr)
-  nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction', bufnr)
+  nmap('<leader>ca', function()
+    vim.lsp.buf.code_action { context = { only = { 'quickfix', 'refactor', 'source' } } }
+  end, '[C]ode [A]ction')
 
   nmap('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition', bufnr)
   nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences', bufnr)
