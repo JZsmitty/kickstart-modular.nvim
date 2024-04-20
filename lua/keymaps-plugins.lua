@@ -48,7 +48,7 @@ Mappings.addDapUi = function()
   local dapui = require 'dapui'
   -- Toggle to see last session result. Without this, you can't see session output in case of unhandled exception.
   map('n', '<F7>', dapui.toggle, 'Debug: See last session result.')
-  print 'keymaps-plugins: Added DapUi mappings'
+  -- print 'keymaps-plugins: Added DapUi mappings'
 end
 
 Mappings.addLsp = function(bufnr)
@@ -74,7 +74,7 @@ Mappings.addLsp = function(bufnr)
   nmap('<leader>wl', function()
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
   end, '[W]orkspace [L]ist Folders', bufnr)
-  print 'keymaps-plugins: Added Lsp mappings'
+  -- print 'keymaps-plugins: Added Lsp mappings'
 end
 
 Mappings.addTelescope = function()
@@ -105,7 +105,7 @@ Mappings.addTelescope = function()
   map('n', '<leader>sG', ':LiveGrepGitRoot<cr>', '[S]earch by [G]rep on Git Root')
   map('n', '<leader>sd', require('telescope.builtin').diagnostics, '[S]earch [D]iagnostics')
   map('n', '<leader>sr', require('telescope.builtin').resume, '[S]earch [R]esume')
-  print 'keymaps-plugins: Added Telescope mappings'
+  -- print 'keymaps-plugins: Added Telescope mappings'
 end
 
 Mappings.addGitSigns = function(bufnr)
@@ -161,7 +161,7 @@ Mappings.addGitSigns = function(bufnr)
 
   -- Text object
   bmap({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>', { desc = 'select git hunk' }, bufnr)
-  print 'keymaps-plugins: Added GitSigns mappings'
+  -- print 'keymaps-plugins: Added GitSigns mappings'
 end
 
 return Mappings
