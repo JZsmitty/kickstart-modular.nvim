@@ -63,6 +63,8 @@ return {
         -- Toggles
         map('n', '<leader>tb', gitsigns.toggle_current_line_blame, { desc = '[T]oggle git show [b]lame line' })
         map('n', '<leader>tD', gitsigns.toggle_deleted, { desc = '[T]oggle git show [D]eleted' })
+        -- Can be used with Visual Selection mode or with any operator. For instance, yih, Yank select git hunk.
+        map({ 'o', 'x' }, 'ih', gitsigns.select_hunk, { desc = 'select g[i]t [h]unk' })
       end,
     },
   },

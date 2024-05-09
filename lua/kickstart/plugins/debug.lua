@@ -35,16 +35,33 @@ return {
 
       -- You can provide additional configuration to the handlers,
       -- see mason-nvim-dap README for more information
-      handlers = {},
+      handlers = {
+        codelldb = function(config)
+          config.adapters = {
+            name = 'codelldb server',
+            type = 'server',
+            port = '${port}',
+            executable = {
+              command = vim.fn.stdpath 'data' .. '\\mason\\packages\\codelldb\\extension\\adapter\\codelldb.exe',
+              args = { '--port', '${port}' },
+            },
+          }
+          print(vim.fn.stdpath 'data' .. '\\mason\\bin\\codelldb')
+          require('mason-nvim-dap').default_setup(config)
+        end,
+      },
 
       -- You'll need to check that you have the required things installed
       -- online, please don't ask me how to install them :)
       ensure_installed = {
         -- Update this to ensure that you have the debuggers for the langs you want
         'delve',
+        'cppdbg',
+        'codelldb',
       },
     }
 
+    local widgets = require 'dap.ui.widgets'
     -- Basic debugging keymaps, feel free to change to your liking!
     vim.keymap.set('n', '<F5>', dap.continue, { desc = 'Debug: Start/Continue' })
     vim.keymap.set('n', '<F1>', dap.step_into, { desc = 'Debug: Step Into' })
@@ -54,6 +71,16 @@ return {
     vim.keymap.set('n', '<leader>B', function()
       dap.set_breakpoint(vim.fn.input 'Breakpoint condition: ')
     end, { desc = 'Debug: Set Breakpoint' })
+    vim.keymap.set('n', '<Leader>dr', dap.repl.open, { desc = 'Debug: Repl Open' })
+    vim.keymap.set('n', '<Leader>dl', dap.run_last, { desc = 'Debug: Run Last' })
+    vim.keymap.set({ 'n', 'v' }, '<Leader>dh', widgets.hover, { desc = 'Debug: Hover' })
+    vim.keymap.set({ 'n', 'v' }, '<Leader>dp', widgets.preview, { desc = 'Debug: Preview' })
+    vim.keymap.set('n', '<Leader>df', function()
+      widgets.centered_float(widgets.frames)
+    end, { desc = 'Debug: Centered Float Frame' })
+    vim.keymap.set('n', '<Leader>ds', function()
+      widgets.centered_float(widgets.scopes)
+    end, { desc = 'Debug: Centered Float Scope' })
 
     -- Dap UI setup
     -- For more information, see |:help nvim-dap-ui|
