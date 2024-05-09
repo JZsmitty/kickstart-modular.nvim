@@ -18,13 +18,17 @@ vim.opt.showmode = false
 -- Sync clipboard between OS and Neovim.
 --  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
-vim.opt.clipboard = 'unnamedplus'
+--  vim.opt.clipboard = 'unnamedplus' -- POSIX
+vim.opt.clipboard = 'unnamed' -- Windows
 
 -- Enable break indent
 vim.opt.breakindent = true
 
 -- Save undo history
 vim.opt.undofile = true
+
+vim.opt.title = true
+vim.opt.titlestring = [[%t – %{fnamemodify(getcwd(), ':t')}]]
 
 -- Case-insensitive searching UNLESS \C or one or more capital letters in the search term
 vim.opt.ignorecase = true
